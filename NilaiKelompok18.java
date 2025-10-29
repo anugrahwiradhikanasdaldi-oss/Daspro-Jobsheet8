@@ -15,6 +15,7 @@ public class NilaiKelompok18 {
             }
             rata_nilai = total_nilai / 5;
             System.out.println("Rata-rata nilai dari " + kelompok + " adalah: " + rata_nilai);
+            System.out.println("---------------------------------");
             i++;
         }
     }
