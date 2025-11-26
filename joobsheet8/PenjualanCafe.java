@@ -1,3 +1,4 @@
+package joobsheet8;
 import java.util.Scanner;
 public class PenjualanCafe {
     public static void main(String[] args) {

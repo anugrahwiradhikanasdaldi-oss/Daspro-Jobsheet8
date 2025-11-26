@@ -1,3 +1,4 @@
+package joobsheet8;
 import java.util.*;
 public class Triangle18 {
     public static void main(String[] args) {
