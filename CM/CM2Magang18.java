@@ -2,31 +2,25 @@ package CM;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class CM2Magang18 {
-
     static Scanner sc = new Scanner(System.in);
-
     static class Magang {
         String nama, nim, prodi, perusahaan, status;
         int semester;
     }
-
     static ArrayList<Magang> daftarMagang = new ArrayList<>();
-
     // menu utama
     public static void main(String[] args) {
         int pilihan;
         do {
-            System.out.println("\n===== MAGANG MAHASISWA =====");
+            System.out.println("===== MAGANG MAHASISWA =====");
             System.out.println("1. Tambah Data");
             System.out.println("2. Tampilkan Semua");
             System.out.println("3. Cari berdasarkan Prodi");
             System.out.println("4. Hitung pendaftar berdasarkan status");
             System.out.println("5. Keluar");
             System.out.print("Pilih menu: ");
-
             pilihan = sc.nextInt();
             sc.nextLine();
-
             switch (pilihan) {
                 case 1 -> tambahData();
                 case 2 -> tampilSemua();
@@ -41,13 +35,10 @@ public class CM2Magang18 {
     // input data
     static void tambahData() {
         Magang m = new Magang();
-
         System.out.print("Nama Mahasiswa : ");
         m.nama = sc.nextLine();
-
         System.out.print("NIM            : ");
         m.nim = sc.nextLine();
-
         // validasi prodi SIB / TI
         while (true) {
             System.out.print("Program Studi (SIB/TI): ");
@@ -56,7 +47,6 @@ public class CM2Magang18 {
             if (m.prodi.equalsIgnoreCase("SIB") ||
                 m.prodi.equalsIgnoreCase("TI"))
                 break;
-
             System.out.println("Prodi hanya boleh SIB atau TI!");
         }
 
@@ -96,63 +86,43 @@ public class CM2Magang18 {
         System.out.println("\nNo\tNama\tNIM\tProdi\tPerusahaan\tSemester\tStatus");
         int no = 1;
         for (Magang m : daftarMagang) {
-            System.out.println(no++ + "\t" + m.nama + "\t" + m.nim + "\t" + m.prodi +
-                    "\t" + m.perusahaan + "\t" + m.semester + "\t\t" + m.status);
+            System.out.println(no++ + "\t" + m.nama + "\t" + m.nim + "\t" + m.prodi +"\t" + m.perusahaan + "\t" + m.semester + "\t\t" + m.status);
         }
     }
-
     // mencari prodi
     static void cariProdi() {
         System.out.print("Masukkan Program Studi (SIB/TI): ");
         String cari = sc.nextLine();
-        boolean ketemu = false;
+        boolean data_mahasiswa = false;
 
         System.out.println("\nNama Mahasiswa\tNIM\tStatus");
 
         for (Magang m : daftarMagang) {
             if (m.prodi.equalsIgnoreCase(cari)) {
                 System.out.println(m.nama + "\t" + m.nim + "\t" + m.status);
-                ketemu = true;
+                data_mahasiswa = true;
             }
         }
-
-        if (!ketemu) {
+        if (!data_mahasiswa) {
             System.out.println("Data tidak ditemukan.");
         }
     }
 
     // hitung pendaftar berdasarkan status
     static void hitung_pendaftar_berdasarkan_status() {
-        System.out.println("\nPilih status mahasiswa magang:");
-        System.out.println("1. Diterima");
-        System.out.println("2. Menunggu");
-        System.out.println("3. Ditolak");
-        System.out.print("Masukkan pilihan (1-3): ");
+    int diterima = 0, menunggu = 0, ditolak = 0;
 
-        int pilihan_status = sc.nextInt();
-        sc.nextLine();
-        switch (pilihan_status) {
-            case 1 -> tampilBerdasarkanStatus("Diterima");
-            case 2 -> tampilBerdasarkanStatus("Menunggu");
-            case 3 -> tampilBerdasarkanStatus("Ditolak");
-            default -> System.out.println("Pilihan tidak valid!");
+    for (Magang m : daftarMagang) {
+        switch (m.status.toLowerCase()) {
+            case "diterima" -> diterima++;
+            case "menunggu" -> menunggu++;
+            case "ditolak" -> ditolak++;
         }
     }
-    //tampilan berdasarkan status
-    static void tampilBerdasarkanStatus(String status) {
-        int jumlah = 0;
-        System.out.println("\n===== Data Status: " + status + " =====");
-        System.out.println("Nama Mahasiswa\tNIM\tProdi\tPerusahaan");
-        for (Magang m : daftarMagang) {
-            if (m.status.equalsIgnoreCase(status)) {
-                System.out.println(m.nama + "\t" + m.nim + "\t" + m.prodi + "\t" + m.perusahaan);
-                jumlah++;
-            }
-        }
-        System.out.println("Total pendaftar dengan status '" + status + "': " + jumlah);
-
-        if (jumlah == 0) {
-            System.out.println("Tidak ada data dengan status tersebut.");
-        }
-    }
+    int total = diterima + menunggu + ditolak;
+    System.out.println("Diterima : " + diterima);
+    System.out.println("Menunggu : " + menunggu);
+    System.out.println("Ditolak  : " + ditolak);
+    System.out.println("Total pendaftar: " + total);
+}
 }
